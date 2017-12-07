@@ -15,42 +15,44 @@ public class Principal {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        double var=0, va=0;
-        int num_alumnno = 4;
-        int contador = 1;
-        Estudiante lista[] = new Estudiante[4];
-        double[] notas_matematicas = new double[4]; 
-        double[] notas_sociales = new double[4]; 
-        
-        while(contador<4) {
-            
-            System.out.println("Ingrese el nombre:");
-            String nombre = sc.nextLine();
-            System.out.println("Ingrese el apellido:");
-            String apellido = sc.nextLine();
-            Estudiante es = new Estudiante(nombre, apellido);
-            
-                       
-            System.out.println("Ingrese su nota en la meteria de matematicas");
-            String mat = sc.nextLine();
-            
-            System.out.println("Ingrese su nota en la materia de sociales");
-            String soc = sc.nextLine();
-            
+
+        Estudiante[] lista_estudiantes = new Estudiante[4];
+        double[] notas_mate = new double[4];
+        double[] notas_soci = new double[4];
+
+        int cont = 0;
+        while (cont < 4) {
+            Estudiante es = new Estudiante();
             try {
-                var = Double.parseDouble(mat);
-                va = Double.parseDouble(soc);
-            } catch (NumberFormatException e) {
+                System.out.println("Ingreso De Estudiantes\n"
+                        + "Estudiante Actual  " + cont);
+                System.out.println("\nIngrese el nombre del Estudiante: ");
+                es.setNombre(sc.nextLine());
+
+                System.out.println("Ingrese el apellido del Estudiante: ");
+                es.setApellido(sc.nextLine());
+                lista_estudiantes[cont] = es;
+
+                System.out.println("Ingrese la nota de matematicas: ");
+
+                notas_mate[cont] = Double.parseDouble(sc.nextLine());
+
+                System.out.println("Ingrese la nota de sociales: ");
+                notas_soci[cont] = Double.parseDouble(sc.nextLine());;
+
+                cont++;
+
+            } catch (NumberFormatException numberFormatException) {
+                System.out.println("La nota debe ser un numero ");
+            } catch (Exception e) {
                 System.err.println(e);
+
             }
-            
-            
-            
-            Asignacion asig = new Asignacion(lista, notas_matematicas, notas_sociales);
-            System.out.println(asig);
-            
+
         }
+        Asignacion a = new Asignacion(lista_estudiantes, notas_mate, notas_soci);
+        System.out.println(a);
+
     }
-    
 
 }

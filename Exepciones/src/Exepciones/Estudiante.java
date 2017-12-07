@@ -16,7 +16,6 @@ public class Estudiante {
 
     public Estudiante() {
     }
-    
 
     public Estudiante(String n, String a) {
         setNombre(n);
@@ -27,8 +26,8 @@ public class Estudiante {
         return nombre;
     }
 
-    public void setNombre(String no) {
-        nombre = no;
+    public void setNombre(String n) {
+        nombre = n;
     }
 
     public String getApellido() {
@@ -41,7 +40,9 @@ public class Estudiante {
 
     @Override
     public String toString() {
-        return String.format("%s %s", getNombre(), getApellido());
-
+        return String.format("%s %s",
+                getNombre(),
+                getApellido());
     }
+
 }

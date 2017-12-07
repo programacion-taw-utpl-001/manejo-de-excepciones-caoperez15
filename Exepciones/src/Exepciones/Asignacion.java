@@ -11,29 +11,29 @@ package Exepciones;
  */
 public class Asignacion {
 
-    Estudiante[] lista_persona;
-    double[] notas_matematicas;
-    double[] notas_sociales;
+    private Estudiante[] lista_estudiante;
+    private double[] notas_matematicas;
+    private double[] notas_sociales;
+    private double[] promedios;
 
     public Asignacion() {
     }
 
-    public Asignacion(Estudiante[] li_pe, double[] no_ma, double[] no_so) {
-        setLista_persona(li_pe);
+    public Asignacion(Estudiante[] li_es, double[] no_ma, double[] no_so) {
+        setLista_estudiante(li_es);
         setNotas_matematicas(no_ma);
         setNotas_sociales(no_so);
     }
 
-    public Estudiante[] getLista_persona() {
-        return lista_persona;
+    public Estudiante[] getLista_estudiante() {
+        return lista_estudiante;
     }
 
-    public void setLista_persona(Estudiante[] li_pe) {
-        lista_persona = li_pe;
+    public void setLista_estudiante(Estudiante[] li_es) {
+        lista_estudiante = li_es;
     }
 
     public double[] getNotas_matematicas() {
-
         return notas_matematicas;
     }
 
@@ -49,47 +49,67 @@ public class Asignacion {
         notas_sociales = no_so;
     }
 
-    public void lista() {
-        String lista = "";
-        for (int i = 0; i < 4; i++) {
-            lista = lista_persona[i].toString() + notas_matematicas[i] + notas_sociales[i];
-        }
+    public double promedio_matematicas() {
+        double promedio_mate = 0.0;
 
+        for (double notas_matematica : getNotas_matematicas()) {
+            promedio_mate += notas_matematica;
+
+        }
+        return promedio_mate / getNotas_matematicas().length;
     }
 
-    public double promedio_por_estudiante() {
-        double prom = 0, suma = 0;
-        double n, n2;
-        for (int i = 0; i < 4; i++) {
-            n = notas_matematicas[i];
-            n2 = notas_sociales[i];
-            suma = n + n2;
+    public double promedio_sociales() {
+        double promedio_sociales = 0.0;
+
+        for (double notas_social : getNotas_sociales()) {
+            promedio_sociales += notas_social;
+
         }
-        prom = suma / 2;
-        return prom;
+
+        return promedio_sociales / getNotas_sociales().length;
     }
 
-    public void promedio_general_por_materia() {
-        double sumaM = 0, promM = 0, promE = 0, sumaE = 0;
-        for (int i = 0; i < notas_matematicas.length; i++) {
-            sumaM = sumaM + notas_matematicas[i];
+    public double[] promedios_alumnos() {
+
+        promedios = new double[4];
+        for (int i = 0; i < this.promedios.length; i++) {
+            promedios[i] = ((getNotas_matematicas()[i] + getNotas_sociales()[i]) / 2);
+
         }
-        promM = sumaM / 4;
-        for (int i = 0; i < notas_sociales.length; i++) {
-            sumaE = sumaE + notas_sociales[i];
+
+        return promedios;
+    }
+
+    public String Estudiantes() {
+        String cadena = "";
+        for (int i = 0; i < getLista_estudiante().length; i++) {
+            cadena += String.format("%s\n"
+                    + "\tMatematicas: %.1f\n"
+                    + "\tSociales: %.1f\n"
+                    + "\tPromedio: %.1f\n\n",
+                    getLista_estudiante()[i],
+                    getNotas_matematicas()[i],
+                    getNotas_sociales()[i],
+                    promedios_alumnos()[i]);
+
         }
-        promE = sumaE / 4;
-        System.out.println("Promedio Matematicas: " + promM);
-        System.out.println("Promedio Sociales: " + promE);
+
+        return cadena;
     }
 
     @Override
     public String toString() {
-        return String.format("%s\n"
-                + "Notas Mate: %s\n"
-                + "Notas Sociales: %s\n"
-                + "Promedio Estudiante: %.2f",
-                getLista_persona(),getNotas_matematicas(), getNotas_sociales(),promedio_por_estudiante());
+
+        return String.format("Lista De Estudiantes\n"
+                + "%s\n"
+                + "Promedios Generales\n"
+                + "Promedios de matematicas: %.1f\n"
+                + "Promedio de sociales: %.1f\n",
+                Estudiantes(),
+                promedio_matematicas(),
+                promedio_sociales());
+
     }
 
 }
